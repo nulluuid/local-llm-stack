@@ -4,6 +4,7 @@
 - [Ollama site](https://ollama.com)
 - [Ollama model library](https://ollama.com/library)
 - [Ollama docs](https://github.com/ollama/ollama/tree/main/docs)
+- [Ollama api docs](https://github.com/ollama/ollama/blob/main/docs/api.md)
 
 # Quick start
 
