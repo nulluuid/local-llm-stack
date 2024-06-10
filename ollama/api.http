@@ -1,0 +1,72 @@
+@api_endpoint=http://localhost:11434
+# Model tinyllama, mistral, llama3
+@model=llama3
+
+
+###
+# Download a model
+POST {{api_endpoint}}/api/pull
+Content-Type: application/json
+{
+  "name": "{{model}}"
+}
+
+###
+# Show a downloaded models
+GET {{api_endpoint}}/api/tags
+
+###
+# Load the model to the memory
+POST {{api_endpoint}}/api/generate
+Content-Type: application/json
+{
+  "model": "{{model}}"
+}
+
+###
+# Show a loaded models
+GET {{api_endpoint}}/api/ps
+
+###
+# Generate a completion
+POST {{api_endpoint}}/api/generate
+Content-Type: application/json
+{
+  "model": "{{model}}",
+  "prompt":"How are you doing today?",
+  "stream": false
+}
+
+###
+# Chat with the model
+POST {{api_endpoint}}/api/chat
+Content-Type: application/json
+{
+  "model": "{{model}}",
+  "messages": [
+    { "role": "user", "content": "How are you doing today?" }
+  ],
+  "stream": false
+}'
+
+###
+# Chat with the model using a template
+POST {{api_endpoint}}/api/chat
+Content-Type: application/json
+{
+  "model": "{{model}}",
+  "stream": false,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Answer like a redneck from Texas"
+    },
+    {
+      "role": "user",
+      "content": "How are you doing today?"
+    }
+  ]
+}
+
+###
+# More examples in docs https://github.com/ollama/ollama/blob/main/docs/api.md

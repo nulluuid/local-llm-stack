@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  llm-server:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - "ollama:/root/.ollama"
+    networks:
+      - public_network
+
+volumes:
+  ollama:
+
+networks:
+  public_network:
+    external: true
