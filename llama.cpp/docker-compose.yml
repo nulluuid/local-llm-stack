@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  llamacpp-server:
+    image: ghcr.io/ggerganov/llama.cpp:server
+    container_name: llamacpp
+    command: -m /models/Meta-Llama-3-8B-Instruct-IQ3_M.gguf --port 8888 --host 0.0.0.0 -n 512
+    ports:
+      - "8888:8888"
+    volumes:
+      - "llamacpp:/models"
+    networks:
+      - public_network
+    depends_on:
+      model_downloader:
+        condition: service_completed_successfully
+
+  model_downloader:
+    build:
+      context: ../huggingface-cli
+    container_name: llamacpp-model-downloader
+    command: download lmstudio-community/Meta-Llama-3-8B-Instruct-GGUF Meta-Llama-3-8B-Instruct-IQ3_M.gguf --local-dir /models
+    volumes:
+      - "llamacpp:/models"
+
+volumes:
+  llamacpp:
+
+networks:
+  public_network:
+    external: true

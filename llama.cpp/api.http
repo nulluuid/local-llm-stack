@@ -1,0 +1,12 @@
+@api_endpoint=http://localhost:8888
+
+###
+GET {{api_endpoint}}/health
+
+###
+POST {{api_endpoint}}/completion
+Content-Type: application/json
+{
+  "prompt": "How to wash a cat?",
+  "n_predict": 128
+}
